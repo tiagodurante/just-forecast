@@ -1,0 +1,3 @@
+export const queryLocationUri = (q) => `https://cors-anywhere.herokuapp.com/http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${process.env.VUE_APP_FORECAST_KEY}&q=${q}&language=pt-br`
+export const queryForecastUri = (location) => `https://cors-anywhere.herokuapp.com/http://dataservice.accuweather.com/forecasts/v1/daily/5day/${location}?apikey=${process.env.VUE_APP_FORECAST_KEY}&language=pt-br&metric=true`
+export const queryCurrentUri = (location) => `https://cors-anywhere.herokuapp.com/http://dataservice.accuweather.com/currentconditions/v1/${location}?apikey=${process.env.VUE_APP_FORECAST_KEY}&language=pt-br`
