@@ -2,14 +2,14 @@
   <AppLayout>
     <v-col cols="12" sm="10" md="6">
       <v-autocomplete
-        label="search your city"
+        label="procure uma cidade"
         :items="dataLocations"
         v-model="city"
         :search-input.sync="search"
         autofocus
         solo
-        rounded
-        :color="`#ea728c`"
+        :loading="true"
+        :color="`#4f3961`"
         clearable
         hide-no-data
         @click:append-outer="goToForecast"
@@ -17,7 +17,7 @@
         single-line
         append-outer-icon="subdirectory_arrow_right"
         :item-text="cityName"
-        hint="just weather forecast"
+        hint="apenas previsão do tempo"
         persistent-hint
         return-object
       ></v-autocomplete>
