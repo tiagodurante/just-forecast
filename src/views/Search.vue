@@ -8,7 +8,6 @@
         :search-input.sync="search"
         autofocus
         solo
-        :loading="true"
         :color="`#4f3961`"
         clearable
         hide-no-data

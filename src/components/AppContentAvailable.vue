@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar color="#4f3961" v-model="snackbar" top :timeout="timeout">Baixando nova atualização... <v-icon dark>system_update</v-icon></v-snackbar>
+  <v-snackbar color="#4f3961" multi-line v-model="snackbar" top :timeout="timeout">Atualização dispoível. Feche e abra novamente para atualizar. <v-icon dark>system_update</v-icon></v-snackbar>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ import { eventBus } from '@/main'
 export default {
   data () {
     return {
-      snackbar: false,
+      snackbar: true,
       timeout: 4000
     }
   },
