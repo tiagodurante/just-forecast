@@ -20,6 +20,7 @@
 
 <script>
 import AppLayout from '@/components/layout/AppLayout'
+import { mapGetters } from 'vuex'
 import AppForecastHeader from '@/components/AppForecastHeader'
 import AppForecastToday from '@/components/AppForecastToday'
 import AppForecastFiveDays from '@/components/AppForecastFiveDays'
@@ -30,6 +31,9 @@ export default {
     AppForecastHeader,
     AppForecastToday,
     AppForecastFiveDays
+  },
+  computed: {
+    ...mapGetters(['dataForecast'])
   }
 }
 </script>

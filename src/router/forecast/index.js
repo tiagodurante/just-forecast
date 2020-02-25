@@ -3,13 +3,20 @@ import Store from '../../store'
 
 export default [
   {
-    path: '/forecast/:location',
+    path: '/forecast/:Key',
     name: 'forecast-index',
     props: true,
     beforeEnter: async (to, params, next) => {
-      const { location } = to.params
-      await Store.dispatch('getForecastByLocation', location)
-      await Store.dispatch('getCurrentByLocation', location)
+      const Key = to.params
+      if (!Key) {
+        return next({
+          name: 'search-index'
+        })
+      }
+
+      await Store.dispatch('verifyKeyOnDataForecast', Key)
+      await Store.dispatch('setCurrent', Key)
+
       next()
     },
     component: Forecast

@@ -1,8 +1,8 @@
 <template>
   <div class="pa-2">
-    <v-card-title class="overline grey--text font-weight-medium">Próximos previsões</v-card-title>
-    <v-container fluid v-if="forecast.DailyForecasts.length">
-      <v-row justify="space-between" v-for="(day, i) in forecast.DailyForecasts" :key="i">
+    <v-card-title class="overline grey--text text--darken-1 font-weight-medium">Próximos previsões</v-card-title>
+    <v-container fluid v-if="selected.forecast.DailyForecasts.length">
+      <v-row justify="space-between" v-for="(day, i) in selected.forecast.DailyForecasts" :key="i">
         <v-col cols="4" class="font-weight-light d-flex flex-column justify-center" v-html="`${$options.filters.date(day.Date)} `">
         </v-col>
         <v-col cols="4" align="center">
@@ -13,12 +13,10 @@
             max-width="30"
           ></v-img>
         </v-col>
-        <v-col cols="4" class="text-end font-weight-light d-flex flex-column justify-center" v-html="`${day.Temperature.Maximum.Value}&deg;C`">
-          <!-- <p v-html="`${day.Temperature.Maximum.Value}&deg;C`" />
-          <p v-if="$vuetify.breakpoint.smAndUp" class="ml-2 grey--text" v-html="`${day.Temperature.Minimum.Value}&deg;C`" /> -->
-        </v-col>
+        <v-col cols="4" class="text-end font-weight-light d-flex flex-column justify-center" v-html="`${day.Temperature.Maximum.Value}&deg;C`"/>
       </v-row>
     </v-container>
+    <p class="text-center font-weight-thin caption mt-4" v-text="`Atualizado ${$options.filters.timeFromNow(selected.updatedAt)}`"/>
   </div>
 </template>
 
@@ -27,7 +25,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'AppForecastHeader',
   computed: {
-    ...mapGetters(['forecast'])
+    ...mapGetters(['selected'])
   }
 }
 </script>

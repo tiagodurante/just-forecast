@@ -4,6 +4,11 @@ export default [
   {
     path: '/',
     name: 'search-index',
+    beforeEnter: async (to, params, next) => {
+      // await Store.dispatch('initLocationFromLocalStorage')
+      // await Store.dispatch('initLocationFromLocalStorage')
+      next()
+    },
     component: Search
   }
   // {

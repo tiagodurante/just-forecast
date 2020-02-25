@@ -11,15 +11,41 @@
         :color="`#4f3961`"
         clearable
         hide-no-data
-        @click:append-outer="goToForecast"
+        @click:append-outer="save"
         hide-selected
         single-line
-        append-outer-icon="subdirectory_arrow_right"
+        append-outer-icon="add"
         :item-text="cityName"
         hint="apenas previsão do tempo"
         persistent-hint
         return-object
       ></v-autocomplete>
+      <v-card v-if="myLocations.length > 0" class="mt-4">
+        <v-card-title class="overline grey--text font-weight-medium">Minhas cidades</v-card-title>
+          <v-list>
+            <v-list-item
+              v-for="(item, i) in myLocations"
+              :key="i"
+              @click="goToForecast(item.Key)"
+            >
+              <v-list-item-avatar>
+                <v-icon
+                  v-text="`wb_cloudy`"
+                ></v-icon>
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title v-text="`${item.LocalizedName}/${item.AdministrativeArea.ID}`"></v-list-item-title>
+              </v-list-item-content>
+
+              <v-list-item-action>
+                <v-btn icon @click.stop="remove(i)">
+                  <v-icon color="#4f3961">remove</v-icon>
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+          </v-list>
+      </v-card>
     </v-col>
   </AppLayout>
 </template>
@@ -40,7 +66,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['dataLocations'])
+    ...mapGetters(['dataLocations', 'myLocations'])
   },
   watch: {
     search (val) {
@@ -54,18 +80,29 @@ export default {
   },
   methods: {
     ...mapActions(['getLocations']),
-    ...mapMutations(['setLocation']),
+    ...mapMutations(['saveMyLocation', 'deleteMyLocation']),
     cityName: (item) => `${item.LocalizedName}/${item.AdministrativeArea.LocalizedName}`,
-    goToForecast () {
-      if (this.city) {
-        this.setLocation(this.city)
-        this.$router.push({
-          name: 'forecast-index',
-          params: {
-            location: this.city.Key
-          }
+    goToForecast (Key) {
+      console.log(Key)
+      return this.$router.push({
+        name: 'forecast-index',
+        params: {
+          Key
+        }
+      })
+    },
+    save () {
+      if (!this.city) return alert('Selecione pelo menos uma cidade.')
+      if (typeof this.city === 'object') {
+        return this.saveMyLocation({
+          city: this.city
         })
       }
+    },
+    remove (index) {
+      return this.deleteMyLocation({
+        index
+      })
     }
   }
 }

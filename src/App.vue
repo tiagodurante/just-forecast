@@ -5,7 +5,12 @@
 </template>
 
 <script>
+// import Store from '@/store'
 export default {
   name: 'AppMain'
+  // created () {
+  //   Store.dispatch('initLocationFromLocalStorage')
+  //   console.log('foi')
+  // }
 }
 </script>
