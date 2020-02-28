@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { queryLocationUri } from './routes'
+import { eventBus } from '@/main'
 const LOCATION_KEY = 'forecast-location'
 
 export default {
@@ -10,6 +11,7 @@ export default {
   mutations: {
     setDataLocations: (state, payload) => {
       state.dataLocations = payload
+      eventBus.$emit('APP_LOADING', false)
     },
     setMyLocationFromLocalStorage: (state, payload) => {
       state.myLocations = payload

@@ -18,7 +18,8 @@ Vue.filter('currentDateTime', function () {
 
 Vue.filter('getDifferenceHourToUpdate', function (value) {
   if (!value) return ''
-  return (dayjs().hour() - dayjs(value).hour()) < 4
+  const data = (dayjs().diff(dayjs(value), 'hour')) < 4
+  return data
 })
 
 Vue.filter('timeFromNow', function (value) {

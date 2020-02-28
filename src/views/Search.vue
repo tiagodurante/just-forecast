@@ -7,6 +7,7 @@
         v-model="city"
         :search-input.sync="search"
         autofocus
+        :loading="loading"
         solo
         :color="`#4f3961`"
         clearable
@@ -51,6 +52,7 @@
 </template>
 
 <script>
+import { eventBus } from '@/main'
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import AppLayout from '@/components/layout/AppLayout'
 export default {
@@ -66,13 +68,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['dataLocations', 'myLocations'])
+    ...mapGetters(['dataLocations', 'myLocations', 'loading'])
   },
   watch: {
     search (val) {
       clearTimeout(this.timeout)
       if (val) {
         this.timeout = setTimeout(() => {
+          eventBus.$emit('APP_LOADING', true)
           this.getLocations(val)
         }, 800)
       }
@@ -80,10 +83,9 @@ export default {
   },
   methods: {
     ...mapActions(['getLocations']),
-    ...mapMutations(['saveMyLocation', 'deleteMyLocation']),
+    ...mapMutations(['saveMyLocation', 'deleteMyLocation', 'setLoading']),
     cityName: (item) => `${item.LocalizedName}/${item.AdministrativeArea.LocalizedName}`,
     goToForecast (Key) {
-      console.log(Key)
       return this.$router.push({
         name: 'forecast-index',
         params: {
@@ -104,6 +106,11 @@ export default {
         index
       })
     }
+  },
+  mounted () {
+    eventBus.$on('APP_LOADING', (bool) => {
+      this.setLoading(bool)
+    })
   }
 }
 </script>

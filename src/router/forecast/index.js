@@ -1,5 +1,6 @@
 import Forecast from '../../views/Forecast'
 import Store from '../../store'
+import { eventBus } from '@/main'
 
 export default [
   {
@@ -14,8 +15,10 @@ export default [
         })
       }
 
-      await Store.dispatch('verifyKeyOnDataForecast', Key)
-      await Store.dispatch('setCurrent', Key)
+      eventBus.$emit('APP_LOADING', true)
+      await Store.dispatch('verifyKeyDataForecast', Key)
+      await Store.dispatch('setCurrentForecast', Key)
+      eventBus.$emit('APP_LOADING', false)
 
       next()
     },
