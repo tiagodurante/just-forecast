@@ -28,13 +28,15 @@ export default {
     getDataForecast: (state, payload) => {
       state.dataForecast = payload
     },
+    updateDataForecast: (state) => {
+      return localStorage.setItem(FORECAST_DATA_KEY, JSON.stringify(state.dataForecast))
+    },
     pushNewObject: (state) => {
       const { city, today, forecast } = state
       const updatedAt = Vue.options.filters.currentDateTime()
-      state.dataForecast.push({
+      return state.dataForecast.push({
         city, today, forecast, updatedAt
       })
-      return localStorage.setItem(FORECAST_DATA_KEY, JSON.stringify(state.dataForecast))
     }
   },
   actions: {
@@ -80,6 +82,7 @@ export default {
         await dispatch('getCurrentByLocation', Key)
         return commit('pushNewObject')
       }
+      return commit('updateDataForecast')
     },
     async setCurrentForecast ({ dispatch, commit, state }, { Key }) {
       const { dataForecast } = state
