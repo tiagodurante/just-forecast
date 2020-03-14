@@ -7,6 +7,13 @@ export default [
     path: '/forecast/:Key',
     name: 'forecast-index',
     props: true,
+    meta: {
+      showTemp: {
+        type: 'Maximum',
+        icon: 'expand_less',
+        colorIcon: 'red'
+      }
+    },
     beforeEnter: async (to, params, next) => {
       const Key = to.params
       if (!Key) {

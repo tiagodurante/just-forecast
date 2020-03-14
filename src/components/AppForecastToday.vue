@@ -9,7 +9,7 @@
       ></v-img>
     </v-row>
     <v-row class="mt-10 mb-6" justify="center">
-      <p class="display-3 font-weight-thin white--text text--darken-4" v-html="`${selected.today.Temperature.Metric.Value}&deg;C`"></p>
+      <p class="display-3 font-weight-light white--text text--darken-4" v-html="`${selected.today.Temperature.Metric.Value}&deg;C`"></p>
     </v-row>
   </v-card-text>
 </template>
