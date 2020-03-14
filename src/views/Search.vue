@@ -82,8 +82,8 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getLocations']),
-    ...mapMutations(['saveMyLocation', 'deleteMyLocation', 'setLoading']),
+    ...mapActions(['getLocations', 'saveMyLocation']),
+    ...mapMutations(['deleteMyLocation', 'setLoading']),
     cityName: (item) => `${item.LocalizedName}/${item.AdministrativeArea.LocalizedName}`,
     goToForecast (Key) {
       return this.$router.push({

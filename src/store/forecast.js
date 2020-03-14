@@ -66,7 +66,7 @@ export default {
     async getCityByMyLocation ({ commit, state }, payload) {
       const { myLocations } = Store.getters
       const city = myLocations.filter((item) => item.Key === payload)
-      if (city.length === 0) {
+      if (!city.length) {
         return Router.push({
           name: 'search-index'
         })

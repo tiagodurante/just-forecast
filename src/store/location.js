@@ -41,6 +41,14 @@ export default {
         }
       })
       commit('setDataLocations', data)
+    },
+    async saveMyLocation ({ state, commit }, { city }) {
+      const { myLocations } = state
+      const result = myLocations.filter((item) => item.Key === city.Key)
+      if (!result.length) {
+        myLocations.push(city)
+        return localStorage.setItem(LOCATION_KEY, JSON.stringify(myLocations))
+      }
     }
   },
   getters: {
