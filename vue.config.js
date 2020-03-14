@@ -8,6 +8,9 @@ module.exports = {
     name: 'Just Forecast',
     manifestOptions: {
       background_color: '#f3d4d4'
+    },
+    workboxOptions: {
+      skipWaiting: true
     }
   },
   transpileDependencies: [
