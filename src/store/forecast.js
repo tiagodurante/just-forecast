@@ -28,10 +28,13 @@ export default {
     getDataForecast: (state, payload) => {
       state.dataForecast = payload
     },
-    updateDataForecast: (state) => {
+    updateDataForecast: (state, payload) => {
+      if (payload) {
+        state.dataForecast = payload
+      }
       return localStorage.setItem(FORECAST_DATA_KEY, JSON.stringify(state.dataForecast))
     },
-    pushNewObject: (state) => {
+    pushDataObject: (state) => {
       const { city, today, forecast } = state
       const updatedAt = Vue.options.filters.currentDateTime()
       return state.dataForecast.push({
@@ -73,16 +76,21 @@ export default {
       }
       return commit('setCity', city.pop())
     },
+    async removeOldData ({ dispatch, commit, state }) {
+      const { dataForecast } = state
+      const result = await dataForecast.filter((item) => Vue.options.filters.getDifferenceHourToUpdate(item.updatedAt))
+      return commit('updateDataForecast', result)
+    },
     async verifyKeyDataForecast ({ dispatch, commit, state }, { Key }) {
       const { dataForecast } = state
-      const result = await dataForecast.filter((item) => item.city.Key === Key && Vue.options.filters.getDifferenceHourToUpdate(item.updatedAt))
+      const result = await dataForecast.filter((item) => item.city.Key === Key)
       if (!result.length) {
         await dispatch('getCityByMyLocation', Key)
         await dispatch('getForecastByLocation', Key)
         await dispatch('getCurrentByLocation', Key)
-        return commit('pushNewObject')
+        await commit('pushDataObject')
+        return commit('updateDataForecast')
       }
-      return commit('updateDataForecast')
     },
     async setCurrentForecast ({ dispatch, commit, state }, { Key }) {
       const { dataForecast } = state

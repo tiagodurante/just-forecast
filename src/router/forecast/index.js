@@ -23,6 +23,7 @@ export default [
       }
 
       eventBus.$emit('APP_LOADING', true)
+      await Store.dispatch('removeOldData')
       await Store.dispatch('verifyKeyDataForecast', Key)
       await Store.dispatch('setCurrentForecast', Key)
       eventBus.$emit('APP_LOADING', false)
