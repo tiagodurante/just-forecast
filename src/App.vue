@@ -5,12 +5,10 @@
 </template>
 
 <script>
-// import Store from '@/store'
 export default {
-  name: 'AppMain'
-  // created () {
-  //   Store.dispatch('initLocationFromLocalStorage')
-  //   console.log('foi')
-  // }
+  name: 'AppMain',
+  created () {
+    screen.orientation.lock('portrait')
+  }
 }
 </script>
