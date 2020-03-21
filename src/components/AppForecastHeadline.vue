@@ -4,6 +4,7 @@
     <v-container fluid v-if="selected.forecast.Headline">
       <p class="white--text text-center" v-text="`${selected.forecast.Headline.Text}.`"/>
     </v-container>
+    {{selected.forecast.Headline}}
   </div>
 </template>
 

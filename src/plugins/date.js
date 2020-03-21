@@ -27,15 +27,15 @@ Vue.filter('timeFromNow', function (value) {
   return dayjs(value).fromNow()
 })
 
-Vue.filter('parseHeadlinePeriod', function (start, end) {
+Vue.filter('parseHeadlinePeriod', function (start, end = null) {
+  if (start && !end) {
+    return `Aviso para o dia ${dayjs(start).format('DD/MM')}`
+  }
   if (!dayjs(start).isSame(dayjs(end), 'day')) {
     return `Aviso para o dia ${dayjs(start).format('DD/MM')} as ${dayjs(start).format('HH:mm')} até ${dayjs(end).format('DD/MM')} as ${dayjs(end).format('HH:mm')}`
   }
   if (dayjs(start).isSame(dayjs(end), 'day')) {
     return `Aviso para o dia ${dayjs(start).format('DD/MM')}, das ${dayjs(start).format('HH:mm')} as ${dayjs(end).format('HH:mm')}`
-  }
-  if (start && !end) {
-    return `Aviso para o dia ${dayjs(start).format('DD/MM')}, a partir das ${dayjs(start).format('HH:mm')}`
   }
   return ''
 })
