@@ -3,12 +3,14 @@ import VueRouter from 'vue-router'
 import Search from './search'
 import Store from '@/store'
 import Forecast from './forecast'
+import ErrorPage from './error'
 
 Vue.use(VueRouter)
 
 const routes = [
   ...Search,
-  ...Forecast
+  ...Forecast,
+  ...ErrorPage
 ]
 
 const router = new VueRouter({

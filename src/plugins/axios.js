@@ -2,6 +2,7 @@
 
 import Vue from 'vue'
 import axios from 'axios'
+import Router from '@/router'
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -34,7 +35,9 @@ _axios.interceptors.response.use(
     return response
   },
   function (error) {
-    // Do something with response error
+    Router.push({
+      name: 'error-page'
+    })
     return Promise.reject(error)
   }
 )

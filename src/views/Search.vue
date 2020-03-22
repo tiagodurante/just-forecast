@@ -12,17 +12,25 @@
         :color="`#4f3961`"
         clearable
         hide-no-data
-        @click:append-outer="save"
+        :menu-props="menuProps"
         hide-selected
         single-line
-        append-outer-icon="add"
         :item-text="cityName"
         hint="apenas previsão do tempo"
         persistent-hint
         return-object
-      ></v-autocomplete>
+      >
+        <template v-slot:progress>
+          <v-progress-linear
+            color="`#4f3961`"
+            absolute
+            height="7"
+            indeterminate
+          ></v-progress-linear>
+        </template>
+      </v-autocomplete>
       <v-card v-if="myLocations.length > 0" class="mt-4">
-        <v-card-title class="overline grey--text font-weight-medium">Minhas cidades</v-card-title>
+        <v-card-title class="overline grey--text font-weight-medium" v-text="`Minhas cidades (${myLocations.length} de ${cityLimit})`"/>
           <v-list>
             <v-list-item
               v-for="(item, i) in myLocations"
@@ -64,7 +72,12 @@ export default {
     return {
       search: '',
       city: null,
-      timeout: null
+      timeout: null,
+      cityLimit: 5,
+      menuProps: {
+        closeOnContentClick: true,
+        openOnClick: false
+      }
     }
   },
   computed: {
@@ -79,6 +92,15 @@ export default {
           this.getLocations(val)
         }, 800)
       }
+    },
+    city (val) {
+      if (typeof val === 'object' && this.myLocations.lenght <= this.cityLimit) {
+        return this.saveMyLocation({
+          city: val
+        })
+      }
+      delete this.city
+      return alert(`É permitido guardar apenas ${this.cityLimit} cidades na lista.`)
     }
   },
   methods: {
