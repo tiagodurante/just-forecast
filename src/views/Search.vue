@@ -2,7 +2,7 @@
   <AppLayout>
     <v-col cols="12" sm="10" md="6">
       <v-autocomplete
-        label="procure uma cidade"
+        label="procure por uma cidade"
         :items="dataLocations"
         v-model="city"
         :search-input.sync="search"
